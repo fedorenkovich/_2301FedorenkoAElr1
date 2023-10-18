@@ -10,9 +10,9 @@ class DoubleLinkedList(var value: Int?) {
 
     companion object {
         //вывод на экран всего списка
-        fun printList(start: DoubleLinkedList?, length: Int) {
+        fun printList(startList: DoubleLinkedList?, length: Int) {
             println("Список: ")
-            var temp = start!!.next
+            var temp = startList!!.next
             for (i in 0..<length){
                 print("${temp!!.value} ")
                 temp = temp.next
@@ -21,34 +21,34 @@ class DoubleLinkedList(var value: Int?) {
         }
 
         //добавление элемента в конец списка
-        fun insertToTail(finish: DoubleLinkedList, value: Int?) {
+        fun insertToTail(endList: DoubleLinkedList, value: Int?) {
             val newTail = DoubleLinkedList(value)
-            finish.prev!!.next = newTail
-            newTail.next = finish
-            newTail.prev = finish.prev
-            finish.prev = newTail
+            endList.prev!!.next = newTail
+            newTail.next = endList
+            newTail.prev = endList.prev
+            endList.prev = newTail
         }
 
         //добавление элемента в начало списка
-        fun insertToHead(start: DoubleLinkedList?, value: Int?) {
+        fun insertToHead(startList: DoubleLinkedList?, value: Int?) {
             val newHead = DoubleLinkedList(value)
-            newHead.next = start!!.next
-            start.next!!.prev = newHead
-            start.next = newHead
-            newHead.prev = start
+            newHead.next = startList!!.next
+            startList.next!!.prev = newHead
+            startList.next = newHead
+            newHead.prev = startList
         }
 
         //добавление элемента на позицию по индексу
-        fun addElemOfIndex(head: DoubleLinkedList?, finish: DoubleLinkedList?, index: Int?, length: Int) {
+        fun addElemOfIndex(startList: DoubleLinkedList?, endList: DoubleLinkedList?, index: Int?, length: Int) {
             if (index == 0) {
                 print("Введите значение элемента: ")
                 val elemValue: Int = readln().toInt()
-                insertToHead(head, elemValue)
+                insertToHead(startList, elemValue)
             } else if ((index!! > 0) && (index < length)) {
                 print("Введите значение элемента: ")
                 val elemValue: Int = readln().toInt()
                 if (index < ceil(length.toDouble() / 2).toInt()) {
-                    var tempElem = head!!.next
+                    var tempElem = startList!!.next
                     for (i in 1..<index) {
                         tempElem = tempElem!!.next
                     }
@@ -58,7 +58,7 @@ class DoubleLinkedList(var value: Int?) {
                     tempElem.next = newElem
                     newElem.prev = tempElem
                 } else {
-                    var tempElem = finish!!.prev
+                    var tempElem = endList!!.prev
                     for (i in 1..<length - index) {
                         tempElem = tempElem!!.prev
                     }
@@ -74,31 +74,31 @@ class DoubleLinkedList(var value: Int?) {
         }
 
         //удаление последнего элемента списка
-        fun deleteLastElem(end: DoubleLinkedList?) {
-            val delElem = end!!.prev
-            end.prev = delElem!!.prev
-            delElem.prev!!.next = end
+        fun deleteLastElem(endList: DoubleLinkedList?) {
+            val delElem = endList!!.prev
+            endList.prev = delElem!!.prev
+            delElem.prev!!.next = endList
         }
 
         //удаление первого элемента списка
-        fun deleteFirstElem(start: DoubleLinkedList?) {
-            val delElem = start!!.next
-            start.next = delElem!!.next
-            delElem.next!!.prev = start
+        fun deleteFirstElem(startList: DoubleLinkedList?) {
+            val delElem = startList!!.next
+            startList.next = delElem!!.next
+            delElem.next!!.prev = startList
         }
 
         //получение элемента по индексу
-        fun getElemOfIndex(start: DoubleLinkedList, end: DoubleLinkedList, length: Int, index: Int): DoubleLinkedList? {
+        fun getElemOfIndex(startList: DoubleLinkedList, endList: DoubleLinkedList, length: Int, index: Int): DoubleLinkedList? {
             if (index in 0..<length) {
                 println("Значение элемента по индексу “$index”: ")
                 return if (index < ceil(length.toDouble() / 2).toInt()) {
-                    var elem = start.next
+                    var elem = startList.next
                     for (i in 0..<index) {
                         elem = elem!!.next
                     }
                     elem
                 } else {
-                    var elem = end.prev
+                    var elem = endList.prev
                     for (i in 1..<length - index) {
                         elem = elem!!.prev
                     }
@@ -111,17 +111,17 @@ class DoubleLinkedList(var value: Int?) {
         }
 
         //удаление элемента по индексу
-        fun delElemOfIndex(start: DoubleLinkedList, end: DoubleLinkedList, length: Int, index: Int) {
+        fun delElemOfIndex(startList: DoubleLinkedList, endList: DoubleLinkedList, length: Int, index: Int) {
             if (index in 0..<length) {
                 if (index < ceil(length.toDouble() / 2).toInt()) {
-                    var delElem = start.next
+                    var delElem = startList.next
                     for (i in 0..<index) {
                         delElem = delElem!!.next
                     }
                     delElem!!.next!!.prev = delElem.prev
                     delElem.prev!!.next = delElem.next
                 } else {
-                    var delElem = end.prev
+                    var delElem = endList.prev
                     for (i in 1..<length - index) {
                         delElem = delElem!!.prev
                     }
@@ -139,27 +139,27 @@ class DoubleLinkedList(var value: Int?) {
         }
 
         //удаление всех элементов списка
-        fun clearList(start: DoubleLinkedList, length: Int) {
+        fun clearList(startList: DoubleLinkedList, length: Int) {
             var listLength = length
             while (listLength != 0) {
-                deleteFirstElem(start)
+                deleteFirstElem(startList)
                 listLength--
             }
         }
 
         //замена значения элемента по индексу на новое
-        fun replaceElem(start: DoubleLinkedList, end: DoubleLinkedList, length: Int, index: Int) {
+        fun replaceElem(startList: DoubleLinkedList, endList: DoubleLinkedList, length: Int, index: Int) {
             if (index in 0..<length) {
                 print("Введите новое значение элемента: ")
                 val elemValue = readln().toInt()
                 if (index < ceil(length.toDouble() / 2).toInt()) {
-                    var newElem = start.next
+                    var newElem = startList.next
                     for (i in 0..<index) {
                         newElem = newElem!!.next
                     }
                     newElem!!.value = elemValue
                 } else {
-                    var newElem = end.prev
+                    var newElem = endList.prev
                     for (i in 1..<length - index) {
                         newElem = newElem!!.prev
                     }
@@ -179,8 +179,8 @@ class DoubleLinkedList(var value: Int?) {
         }
 
         //изменение порядка списка на обратный
-        fun reverseList(start: DoubleLinkedList, length: Int) {
-            var helper = start.next
+        fun reverseList(startList: DoubleLinkedList, length: Int) {
+            var helper = startList.next
             val temp = DoubleLinkedList(null)
             for (i in 1..length) {
                 temp.next = helper!!.next
